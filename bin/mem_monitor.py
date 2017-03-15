@@ -83,7 +83,7 @@ def update_status_stale(stat, last_update_time):
     stat.values.pop(0)
     stat.values.insert(0, KeyValue(key = 'Update Status', value = stale_status))
     stat.values.insert(1, KeyValue(key = 'Time Since Update', value = str(time_since_update)))
-    
+
 
 class MemMonitor():
     def __init__(self, hostname, diag_hostname):
@@ -95,7 +95,7 @@ class MemMonitor():
         self._mem_level_error = rospy.get_param('~mem_level_error', mem_level_error)
 
         self._usage_timer = None
-        
+
         self._usage_stat = DiagnosticStatus()
         self._usage_stat.name = 'Memory Usage (%s)' % diag_hostname
         self._usage_stat.level = 1
@@ -132,20 +132,22 @@ class MemMonitor():
             if retcode != 0:
                 values.append(KeyValue(key = "\"free -tm\" Call Error", value = str(retcode)))
                 return DiagnosticStatus.ERROR, values
-
+            #Reading command return
             rows = stdout.split('\n')
+            #Reading Physical memory
             data = rows[1].split()
             total_mem_physical = data[1]
             used_mem_physical = data[2]
             free_mem_physical = data[3]
+            used_mem_wo_buffers = data[4]
+            free_mem_wo_buffers = data[5]
+            #Reading Swap memory
             data = rows[2].split()
-            used_mem_wo_buffers = data[2]
-            free_mem_wo_buffers = data[3]
-            data = rows[3].split()
             total_mem_swap = data[1]
             used_mem_swap = data[2]
             free_mem_swap = data[3]
-            data = rows[4].split()
+            #Reading Total memory
+            data = rows[3].split()
             total_mem = data[1]
             used_mem = data[2]
             free_mem = data[3]
@@ -185,7 +187,7 @@ class MemMonitor():
         if rospy.is_shutdown():
             with self._mutex:
                 self.cancel_timers()
-            return 
+            return
 
         diag_level = 0
         diag_vals = [ KeyValue(key = 'Update Status', value = 'OK' ),
@@ -209,9 +211,9 @@ class MemMonitor():
             self._last_usage_time = rospy.get_time()
             self._usage_stat.level = diag_level
             self._usage_stat.values = diag_vals
-            
+
             self._usage_stat.message = usage_msg
-            
+
             if not rospy.is_shutdown():
                 self._usage_timer = threading.Timer(5.0, self.check_usage)
                 self._usage_timer.start()
