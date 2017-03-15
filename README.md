@@ -38,7 +38,6 @@ simply use the command
 
 ```
 sudo apt-get install ros-kinetic-rospy ros-kinetic-message-generation ros-kinetic-std-msgs ros-kinetic-diagnostic-msgs
-
 ```
 ##### Cloning this repository on the src folder 
 
