@@ -37,9 +37,9 @@ package repositories of recent Ubuntu and ROS releases. To install them,
 simply use the command
 
 ```
-sudo apt-get install ros-kinetic-rospy ros-kinetic-message-generation ros-kinetic-std-msgs ros-kinetic-diagnostic-msgs
+sudo apt-get install ros-kinetic-rospy ros-kinetic-message-generation ros-kinetic-std-msgs ros-kinetic-diagnostic-msgs sysstat
 ```
-##### Cloning this repository on the src folder 
+##### Cloning this repository on the src folder
 
 * Switch into the src directory of your ros workspace
 ```
@@ -59,17 +59,17 @@ git clone http://github.com/WalkingMachine/ros-system-monitor.git
   cd ~/ros_ws/src/ros-system-monitor
   ```
 
-* Configure the build 
+* Configure the build
   ```
   cmake -DROS_DISTRIBUTION=kinetic ~/ros_ws/src/ros-system-monitor
   ```
 
-* Building the package 
+* Building the package
   ```
   sudo make
   ```
 
-* If you intend to install the project, call 
+* If you intend to install the project, call
   ```
   sudo make install
   ```
