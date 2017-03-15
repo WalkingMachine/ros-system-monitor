@@ -10,13 +10,10 @@
       output="$(arg output)" respawn="true"/>
     <node name="mem_monitor" pkg="system_monitor" type="mem_monitor.py"
       output="$(arg output)" respawn="true"/>
-    <node name="ntp_monitor" pkg="system_monitor" type="ntp_monitor.py"
-      output="$(arg output)" respawn="true"/>
     <node name="net_monitor" pkg="system_monitor" type="net_monitor.py"
-      output="$(arg output)" respawn="true"/>      
+      output="$(arg output)" respawn="true"/>
   </group>
-  
+
   <rosparam command="load" file="$(arg config_file)"
     ns="system_monitor/$(arg machine_name)"/>
 </launch>
-
