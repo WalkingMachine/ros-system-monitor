@@ -5,14 +5,8 @@
 System monitoring tools for ROS.
 
 **Author(s):** Willow Garage, Inc., Jerome Maye, Ralf Kaestner
-
-**Maintainer:** Ralf Kaestner <ralf.kaestner@gmail.com>
-
 **License:** BSD License (BSD)
-
 **Operating system(s):** Debian-based Linux
-
-**Package PPA:** ppa:ethz-asl/ros
 
 ## Description
 
@@ -28,39 +22,9 @@ following ROS nodes:
 Each node publishes ROS diagnostics which can conveniently be visualized
 in the runtime monitor.
 
+Note than this fork is made specifically for our robot Sara, for the kinetic ros distribution.
+
 ## Installation
-
-Here, we assume you intend to build/install the project for the ROS
-distribution named `ROS_DISTRO`.
-
-### Installing from packages (recommended for Ubuntu LTS users)
-
-The maintainers of this project provide binary packages for the latest Ubuntu
-LTS releases and commonly used system architectures. To install these packages,
-you may follow these instructions:
-
-* Add the project PPA to your APT sources by issuing 
-
-  ```
-  sudo add-apt-repository ppa:ethz-asl/ros
-  ```
-
-  on the command line
-
-* To re-synchronize your package index files, run
-
-  ```
-  sudo apt-get update
-  ```
-
-* Install all project packages and their dependencies through
-
-  ```
-  sudo apt-get install ros-ROS_DISTRO-system-monitor
-  ```
-
-  or using your favorite package management tool
-
 ### Building from source
 
 This project may be built using the CMake build system with an open-source
@@ -73,79 +37,40 @@ package repositories of recent Ubuntu and ROS releases. To install them,
 simply use the command
 
 ```
-sudo apt-get install ros-ROS_DISTRO-rospy, ros-ROS_DISTRO-message-generation, ros-ROS_DISTRO-std-msgs, ros-ROS_DISTRO-diagnostic-msgs
+sudo apt-get install ros-kinetic-rospy ros-kinetic-message-generation ros-kinetic-std-msgs ros-kinetic-diagnostic-msgs
 
 ```
-#### Building with ReMake
+##### Cloning this repository on the src folder 
 
-##### Preparing the build system
+* Switch into the src directory of your ros workspace
+```
+cd ~/ros_ws/src/
+```
 
-If you already have installed ReMake on your build system, you may
-skip this step. Otherwise, before attempting to build this project the
-traditional CMake way, you must install ReMake following
-[these instructions](https://github.com/kralf/remake).
+* Cloning repository
+```
+git clone http://github.com/WalkingMachine/ros-system-monitor.git
+```
 
 ##### Building with CMake
 
-Once ReMake is available on your build system, you may attempt to build this
-project the CMake way. Assuming that you have cloned the project sources into
-`PROJECT_DIR`, a typical out-of-source build might look like this:
 
-* Create a build directory using 
-
+* Switch into the package directory
   ```
-  mkdir -p PROJECT_DIR/build
+  cd ~/ros_ws/src/ros-system-monitor
   ```
 
-* Switch into the build directoy by 
-
+* Configure the build 
   ```
-  cd PROJECT_DIR/build
-  ```
-
-* In the build directory, run 
-
-  ```
-  cmake -DROS_DISTRIBUTION=ROS_DISTRO PROJECT_DIR
+  cmake -DROS_DISTRIBUTION=kinetic ~/ros_ws/src/ros-system-monitor
   ```
 
-  to configure the build
-
-* If you want to inspect or modify the build configuration, issue 
-
+* Building the package 
   ```
-  ccmake PROJECT_DIR
-  ```
-
-* Build the project using 
-
-  ```
-  make
+  sudo make
   ```
 
 * If you intend to install the project, call 
-
   ```
-  make packages_install
+  sudo make install
   ```
-
-  (from packages on Debian-based Linux only) or 
-
-  ```
-  make install
-  ```
-
-## API documentation
-
-This project does not yet provide any API documentation.
-
-## Feature requests and bug reports
-
-If you would like to propose a feature for this project, please consider
-contributing or send a feature request to the project authors. Bugs may be
-reported through the project's issue page.
-
-## Further reading
-
-For additional information of the Robot Operating System (ROS), please refer
-to the official [ROS documentation](http://wiki.ros.org).
